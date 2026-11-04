@@ -1,41 +1,46 @@
 <!doctype html><html><head><meta charset="utf-8"><style>
 body{margin:0;background:#fff;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
-.wrap{position:relative;width:1200px;height:540px}
-.panel{position:absolute;top:20px;width:430px;height:500px;border-radius:40px}
-.mx{left:20px;background:#f6c4a3}.fl{right:20px;background:#b7d3ec}
-.ttl{position:absolute;top:10px;width:100%;text-align:center;color:#fff;font-weight:700;font-size:22px;letter-spacing:.5px}
-.foot{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);padding:8px 26px;color:#fff;font-weight:600;font-size:17px;border-radius:4px;white-space:nowrap}
+.wrap{position:relative;width:1200px;height:470px}
+.panel{position:absolute;top:20px;width:430px;height:430px;border-radius:40px}
+.mx{left:20px;background:#f6c4a3}.fl{left:750px;background:#b7d3ec}
+.ttl{position:absolute;top:12px;width:100%;text-align:center;color:#fff;font-weight:700;font-size:22px}
+.foot{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);padding:7px 24px;color:#fff;font-weight:600;font-size:16px;border-radius:4px;white-space:nowrap}
 .mx .foot{background:#ee9a63}.fl .foot{background:#79aedb}
-.box{position:absolute;border-radius:16px;padding:12px 14px;font-size:16px;line-height:1.35;color:#1f2933;box-sizing:border-box}
+.box{position:absolute;border-radius:14px;padding:10px 14px;font-size:15px;line-height:1.35;color:#1f2933;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
 .box b{display:block;margin-bottom:2px}
-.res{position:absolute;background:#9cb980;border-radius:8px;padding:12px 12px;font-weight:700;font-size:16px;color:#1f2933}
-.br{position:absolute;border:2px solid #3b6ea8;border-left:none;border-radius:0 18px 18px 0;width:22px}
-.brl{position:absolute;border:2px solid #3b6ea8;border-right:none;border-radius:18px 0 0 18px;width:22px}
-.exp{position:absolute;border-radius:50%;background:#b8b8b8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#1f2933}
-.lab{position:absolute;font-size:14px;font-weight:600;color:#1f2933;background:rgba(255,255,255,.85);padding:2px 6px;border-radius:4px}
+.res{position:absolute;background:#9cb980;border-radius:8px;font-weight:700;color:#1f2933;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
+.lab{position:absolute;font-size:13.5px;font-weight:600;color:#1f2933;text-align:center;line-height:1.25}
 </style></head><body><div class="wrap">
-<div class="panel mx"><div class="ttl">ANSYS Maxwell</div>
- <div class="box" style="left:28px;top:60px;width:230px;background:#a9b4bd"><b>Geometry</b>3D model of the damper, material assignment</div>
- <div class="box" style="left:28px;top:165px;width:230px;background:#ee9a63"><b>Mesh</b>adaptive mesh refinement</div>
- <div class="box" style="left:28px;top:245px;width:230px;background:#f8c252"><b>Setup</b>coil current values, number of turns, solution accuracy (energy error &lt; 0.1 %), boundary conditions</div>
- <div class="brl" style="display:none"></div>
- <div class="res" style="left:316px;top:308px">Results</div>
- <div class="foot">Magnetic field simulation</div></div>
-<div class="panel fl"><div class="ttl">ANSYS Fluent</div>
- <div class="box" style="left:28px;top:60px;width:300px;background:#79aedb"><b>Geometry</b>2D axisymmetric model of the fluid domain</div>
- <div class="box" style="left:28px;top:160px;width:300px;background:#c99c88"><b>Mesh</b>high-resolution mesh in the critical regions (gap), coarse elsewhere; dynamic mesh</div>
- <div class="box" style="left:28px;top:290px;width:300px;background:#dcc56f"><b>Setup</b>sinusoidal piston motion, axisymmetry, fluid viscosity as a function of the magnetic field (UDF + UDS)</div>
- <div class="res" style="left:350px;top:226px;padding:9px 5px;font-size:12.5px">Results</div>
- <div class="foot">Fluid simulation</div></div>
-<svg width="1200" height="640" style="position:absolute;left:0;top:0">
- <defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="22" refX="4" refY="11" orient="auto"><path d="M0,0 L22,11 L0,22 z" fill="#8a8a8a"/></marker></defs>
- <path d="M290,70 Q306,70 306,88 L306,378 Q306,396 290,396" fill="none" stroke="#3b6ea8" stroke-width="2"/>
- <line x1="404" y1="330" x2="526" y2="330" stroke="#8a8a8a" stroke-width="10" marker-end="url(#a)"/>
- <path d="M776,212 L640,212 Q600,212 600,240 L600,276" fill="none" stroke="#8a8a8a" stroke-width="10" marker-end="url(#a)"/>
- <line x1="656" y1="345" x2="752" y2="345" stroke="#8a8a8a" stroke-width="10" marker-end="url(#a)"/>
- <path d="M1078,72 Q1090,72 1090,90 L1090,402 Q1090,420 1078,420" fill="none" stroke="#3b6ea8" stroke-width="2"/>
+<div class="panel mx"><div class="ttl">ANSYS Maxwell</div><div class="foot">Magnetic field simulation</div></div>
+<div class="panel fl"><div class="ttl">ANSYS Fluent</div><div class="foot">Fluid simulation</div></div>
+<!-- Maxwell boxes (absolute page coords) -->
+<div class="box" style="left:48px;top:66px;width:230px;height:76px;background:#a9b4bd"><b>Geometry</b>3D model of the damper, material assignment</div>
+<div class="box" style="left:48px;top:154px;width:230px;height:64px;background:#ee9a63"><b>Mesh</b>adaptive mesh refinement</div>
+<div class="box" style="left:48px;top:230px;width:230px;height:150px;background:#f8c252"><b>Setup</b>coil current, number of turns, solution accuracy (energy error &lt; 0.1 %), boundary conditions</div>
+<div class="res" style="left:316px;top:201px;width:88px;height:44px;font-size:15px">Results</div>
+<!-- Fluent boxes -->
+<div class="box" style="left:778px;top:66px;width:300px;height:76px;background:#79aedb"><b>Geometry</b>2D axisymmetric model of the fluid domain</div>
+<div class="box" style="left:778px;top:154px;width:300px;height:96px;background:#c99c88"><b>Mesh</b>fine mesh in the gap, coarse elsewhere; dynamic mesh (smoothing + remeshing)</div>
+<div class="box" style="left:778px;top:262px;width:300px;height:118px;background:#dcc56f"><b>Setup</b>sinusoidal piston motion (UDF), axisymmetry, viscosity of each cell from its |B| (UDS + Bingham model)</div>
+<div class="res" style="left:1104px;top:201px;width:68px;height:44px;font-size:13px">Results</div>
+<svg width="1200" height="470" style="position:absolute;left:0;top:0">
+ <defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="18" refY="10" orient="auto"><path d="M0,0 L20,10 L0,20 z" fill="#808080"/></marker></defs>
+ <!-- brackets, midpoints at y=223 -->
+ <path d="M288,66 Q300,66 300,80 L300,366 Q300,380 288,380" fill="none" stroke="#3b6ea8" stroke-width="2"/>
+ <line x1="300" y1="223" x2="316" y2="223" stroke="#3b6ea8" stroke-width="2"/>
+ <path d="M1084,66 Q1096,66 1096,80 L1096,366 Q1096,380 1084,380" fill="none" stroke="#3b6ea8" stroke-width="2"/>
+ <line x1="1096" y1="223" x2="1104" y2="223" stroke="#3b6ea8" stroke-width="2"/>
+ <!-- export node -->
+ <ellipse cx="600" cy="223" rx="66" ry="36" fill="#b8b8b8"/>
+ <text x="600" y="219" text-anchor="middle" font-size="16" font-weight="700" fill="#1f2933" font-family="Segoe UI,Arial">Export</text>
+ <text x="600" y="238" text-anchor="middle" font-size="12" fill="#1f2933" font-family="Segoe UI,Arial">Fields Calculator</text>
+ <!-- Maxwell results -> export -->
+ <line x1="404" y1="223" x2="532" y2="223" stroke="#808080" stroke-width="8" marker-end="url(#a)"/>
+ <!-- Fluent mesh centroids -> export (enters right side) -->
+ <line x1="778" y1="206" x2="662" y2="206" stroke="#808080" stroke-width="8" marker-end="url(#a)"/>
+ <!-- export -> Fluent setup -->
+ <path d="M600,259 L600,309 Q600,321 612,321 L776,321" fill="none" stroke="#808080" stroke-width="8" marker-end="url(#a)"/>
 </svg>
-<div class="exp" style="left:545px;top:298px;width:110px;height:64px">Export</div>
-<div class="lab" style="left:640px;top:158px">Fluid mesh<br>cell centroids</div>
-<div class="lab" style="left:560px;top:378px;width:170px">|B| at the fluid<br>cell centroids</div>
+<div class="lab" style="left:658px;top:158px;width:120px">Fluid mesh<br>cell centroids</div>
+<div class="lab" style="left:612px;top:332px;width:166px">|B| mapped to<br>fluid cells (UDS-0)</div>
 </div></body></html>
