@@ -24,7 +24,7 @@ body{margin:0;background:#fff;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
 <div class="box" style="left:778px;top:262px;width:300px;height:118px;background:#dcc56f"><b>Setup</b>sinusoidal piston motion (UDF), axisymmetry, viscosity of each cell from its |B| (UDS + Bingham model)</div>
 <div class="res" style="left:1104px;top:201px;width:68px;height:44px;font-size:13px">Results</div>
 <svg width="1200" height="510" style="position:absolute;left:0;top:0">
- <defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="18" refY="10" orient="auto"><path d="M0,0 L20,10 L0,20 z" fill="#808080"/></marker><marker id="b" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#3b6ea8"/></marker></defs>
+ <defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="1" refY="10" orient="auto"><path d="M0,0 L20,10 L0,20 z" fill="#808080"/></marker><marker id="b" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="1" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#3b6ea8"/></marker></defs>
  <!-- brackets, midpoints at y=223 -->
  <path d="M288,66 Q300,66 300,80 L300,366 Q300,380 288,380" fill="none" stroke="#3b6ea8" stroke-width="2"/>
  <line x1="300" y1="223" x2="316" y2="223" stroke="#3b6ea8" stroke-width="2"/>
@@ -35,13 +35,13 @@ body{margin:0;background:#fff;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
  <text x="600" y="219" text-anchor="middle" font-size="16" font-weight="700" fill="#1f2933" font-family="Segoe UI,Arial">Export</text>
  <text x="600" y="238" text-anchor="middle" font-size="12" fill="#1f2933" font-family="Segoe UI,Arial">Fields Calculator</text>
  <!-- Maxwell results -> export -->
- <line x1="404" y1="223" x2="532" y2="223" stroke="#808080" stroke-width="8" marker-end="url(#a)"/>
+ <line x1="404" y1="223" x2="514" y2="223" stroke="#808080" stroke-width="8" stroke-linecap="butt" marker-end="url(#a)"/>
  <!-- Fluent mesh centroids -> export (enters right side) -->
- <line x1="778" y1="206" x2="662" y2="206" stroke="#808080" stroke-width="8" marker-end="url(#a)"/>
+ <line x1="778" y1="206" x2="680" y2="206" stroke="#808080" stroke-width="8" stroke-linecap="butt" marker-end="url(#a)"/>
  <!-- export -> Fluent setup -->
- <path d="M600,259 L600,309 Q600,321 612,321 L776,321" fill="none" stroke="#808080" stroke-width="8" marker-end="url(#a)"/>
+ <path d="M600,259 L600,309 Q600,321 612,321 L758,321" fill="none" stroke="#808080" stroke-width="8" stroke-linecap="butt" marker-end="url(#a)"/>
  <!-- loop: solve once per current -->
- <path d="M360,245 L360,398 Q360,410 348,410 L175,410 Q163,410 163,398 L163,383" fill="none" stroke="#3b6ea8" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#b)"/>
+ <path d="M360,245 L360,398 Q360,410 348,410 L175,410 Q163,410 163,398 L163,393" fill="none" stroke="#3b6ea8" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#b)"/>
 </svg>
 <div class="lab" style="left:120px;top:416px;width:290px;color:#3b6ea8">repeat for each current (0.25, 0.5, 1, 2 A)</div>
 <div class="lab" style="left:658px;top:158px;width:120px">Fluid mesh<br>cell centroids</div>
