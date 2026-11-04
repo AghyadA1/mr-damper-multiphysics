@@ -1,7 +1,6 @@
 # MR Damper Multiphysics: Ansys Maxwell → Ansys Fluent field coupling
 
-**Author:** Aghyad ALI  
-Fourth-year project, Higher Institute for Applied Sciences and Technology (HIAST),
+Internship project at the Higher Institute for Applied Sciences and Technology (HIAST),
 Department of Electronic and Mechanical Systems Engineering, 2024/2025.
 
 This repository documents the **electromagnetic simulation** of a magnetorheological (MR) damper
