@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#fff;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
+.wrap{position:relative;width:1200px;height:540px}
+.panel{position:absolute;top:20px;width:430px;height:500px;border-radius:40px}
+.mx{left:20px;background:#f6c4a3}.fl{right:20px;background:#b7d3ec}
+.ttl{position:absolute;top:10px;width:100%;text-align:center;color:#fff;font-weight:700;font-size:22px;letter-spacing:.5px}
+.foot{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);padding:8px 26px;color:#fff;font-weight:600;font-size:17px;border-radius:4px;white-space:nowrap}
+.mx .foot{background:#ee9a63}.fl .foot{background:#79aedb}
+.box{position:absolute;border-radius:16px;padding:12px 14px;font-size:16px;line-height:1.35;color:#1f2933;box-sizing:border-box}
+.box b{display:block;margin-bottom:2px}
+.res{position:absolute;background:#9cb980;border-radius:8px;padding:12px 12px;font-weight:700;font-size:16px;color:#1f2933}
+.br{position:absolute;border:2px solid #3b6ea8;border-left:none;border-radius:0 18px 18px 0;width:22px}
+.brl{position:absolute;border:2px solid #3b6ea8;border-right:none;border-radius:18px 0 0 18px;width:22px}
+.exp{position:absolute;border-radius:50%;background:#b8b8b8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#1f2933}
+.lab{position:absolute;font-size:14px;font-weight:600;color:#1f2933;background:rgba(255,255,255,.85);padding:2px 6px;border-radius:4px}
+</style></head><body><div class="wrap">
+<div class="panel mx"><div class="ttl">ANSYS Maxwell</div>
+ <div class="box" style="left:28px;top:60px;width:230px;background:#a9b4bd"><b>Geometry</b>3D model of the damper, material assignment</div>
+ <div class="box" style="left:28px;top:165px;width:230px;background:#ee9a63"><b>Mesh</b>adaptive mesh refinement</div>
+ <div class="box" style="left:28px;top:245px;width:230px;background:#f8c252"><b>Setup</b>coil current values, number of turns, solution accuracy (energy error &lt; 0.1 %), boundary conditions</div>
+ <div class="brl" style="display:none"></div>
+ <div class="res" style="left:316px;top:308px">Results</div>
+ <div class="foot">Magnetic field simulation</div></div>
+<div class="panel fl"><div class="ttl">ANSYS Fluent</div>
+ <div class="box" style="left:28px;top:60px;width:300px;background:#79aedb"><b>Geometry</b>2D axisymmetric model of the fluid domain</div>
+ <div class="box" style="left:28px;top:160px;width:300px;background:#c99c88"><b>Mesh</b>high-resolution mesh in the critical regions (gap), coarse elsewhere; dynamic mesh</div>
+ <div class="box" style="left:28px;top:290px;width:300px;background:#dcc56f"><b>Setup</b>sinusoidal piston motion, axisymmetry, fluid viscosity as a function of the magnetic field (UDF + UDS)</div>
+ <div class="res" style="left:350px;top:226px;padding:9px 5px;font-size:12.5px">Results</div>
+ <div class="foot">Fluid simulation</div></div>
+<svg width="1200" height="640" style="position:absolute;left:0;top:0">
+ <defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="22" refX="4" refY="11" orient="auto"><path d="M0,0 L22,11 L0,22 z" fill="#8a8a8a"/></marker></defs>
+ <path d="M290,70 Q306,70 306,88 L306,378 Q306,396 290,396" fill="none" stroke="#3b6ea8" stroke-width="2"/>
+ <line x1="404" y1="330" x2="526" y2="330" stroke="#8a8a8a" stroke-width="10" marker-end="url(#a)"/>
+ <path d="M776,212 L640,212 Q600,212 600,240 L600,276" fill="none" stroke="#8a8a8a" stroke-width="10" marker-end="url(#a)"/>
+ <line x1="656" y1="345" x2="752" y2="345" stroke="#8a8a8a" stroke-width="10" marker-end="url(#a)"/>
+ <path d="M1078,72 Q1090,72 1090,90 L1090,402 Q1090,420 1078,420" fill="none" stroke="#3b6ea8" stroke-width="2"/>
+</svg>
+<div class="exp" style="left:545px;top:298px;width:110px;height:64px">Export</div>
+<div class="lab" style="left:640px;top:158px">Fluid mesh<br>cell centroids</div>
+<div class="lab" style="left:560px;top:378px;width:170px">|B| at the fluid<br>cell centroids</div>
+</div></body></html>
