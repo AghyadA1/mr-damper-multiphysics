@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"><style>
 body{margin:0;background:#fff;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
-.wrap{position:relative;width:1200px;height:470px}
-.panel{position:absolute;top:20px;width:430px;height:430px;border-radius:40px}
+.wrap{position:relative;width:1200px;height:510px}
+.panel{position:absolute;top:20px;width:430px;height:470px;border-radius:40px}
 .mx{left:20px;background:#f6c4a3}.fl{left:750px;background:#b7d3ec}
 .ttl{position:absolute;top:12px;width:100%;text-align:center;color:#fff;font-weight:700;font-size:22px}
 .foot{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);padding:7px 24px;color:#fff;font-weight:600;font-size:16px;border-radius:4px;white-space:nowrap}
@@ -23,8 +23,8 @@ body{margin:0;background:#fff;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
 <div class="box" style="left:778px;top:154px;width:300px;height:96px;background:#c99c88"><b>Mesh</b>fine mesh in the gap, coarse elsewhere; dynamic mesh (smoothing + remeshing)</div>
 <div class="box" style="left:778px;top:262px;width:300px;height:118px;background:#dcc56f"><b>Setup</b>sinusoidal piston motion (UDF), axisymmetry, viscosity of each cell from its |B| (UDS + Bingham model)</div>
 <div class="res" style="left:1104px;top:201px;width:68px;height:44px;font-size:13px">Results</div>
-<svg width="1200" height="470" style="position:absolute;left:0;top:0">
- <defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="18" refY="10" orient="auto"><path d="M0,0 L20,10 L0,20 z" fill="#808080"/></marker></defs>
+<svg width="1200" height="510" style="position:absolute;left:0;top:0">
+ <defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="18" refY="10" orient="auto"><path d="M0,0 L20,10 L0,20 z" fill="#808080"/></marker><marker id="b" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#3b6ea8"/></marker></defs>
  <!-- brackets, midpoints at y=223 -->
  <path d="M288,66 Q300,66 300,80 L300,366 Q300,380 288,380" fill="none" stroke="#3b6ea8" stroke-width="2"/>
  <line x1="300" y1="223" x2="316" y2="223" stroke="#3b6ea8" stroke-width="2"/>
@@ -40,7 +40,10 @@ body{margin:0;background:#fff;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
  <line x1="778" y1="206" x2="662" y2="206" stroke="#808080" stroke-width="8" marker-end="url(#a)"/>
  <!-- export -> Fluent setup -->
  <path d="M600,259 L600,309 Q600,321 612,321 L776,321" fill="none" stroke="#808080" stroke-width="8" marker-end="url(#a)"/>
+ <!-- loop: solve once per current -->
+ <path d="M360,245 L360,398 Q360,410 348,410 L175,410 Q163,410 163,398 L163,383" fill="none" stroke="#3b6ea8" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#b)"/>
 </svg>
+<div class="lab" style="left:120px;top:416px;width:290px;color:#3b6ea8">repeat for each current (0.25, 0.5, 1, 2 A)</div>
 <div class="lab" style="left:658px;top:158px;width:120px">Fluid mesh<br>cell centroids</div>
 <div class="lab" style="left:612px;top:332px;width:166px">|B| mapped to<br>fluid cells (UDS-0)</div>
 </div></body></html>
