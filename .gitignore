@@ -5,3 +5,7 @@
 *.adp
 *.ngmesh
 __pycache__/
+
+# Outputs written by scripts/ (full-precision versions of the Excel files)
+data/coupling/02_maxwell_query_points.pts
+fluent_udf/Finaluds_full_precision.txt

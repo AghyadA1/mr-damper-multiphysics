@@ -1,11 +1,33 @@
 # MR Damper Multiphysics: Ansys Maxwell → Ansys Fluent field coupling
 
-Internship project at the Higher Institute for Applied Sciences and Technology (HIAST),
-Department of Electronic and Mechanical Systems Engineering, 2024/2025.
+A magnetorheological (MR) damper resists motion more when a coil magnetizes the fluid in a 0.9 mm
+gap around the piston. This project models that field in **Ansys Maxwell 3D** and carries it into
+an **Ansys Fluent** model of the fluid, where it is stored cell by cell to drive the viscosity.
 
-This repository documents the **electromagnetic simulation** of a magnetorheological (MR) damper
-and the **one-way coupling** that carries the solved magnetic field into a 2D axisymmetric
-Ansys Fluent model, where the fluid viscosity of each cell depends on the local field.
+Internship project, Higher Institute for Applied Sciences and Technology (HIAST), Jul to Aug 2025.
+
+## Highlights
+
+- **Nonlinear 3D magnetostatic model**: steel 1008 B-H for the piston and cylinder, plus a custom
+  MR-fluid material built from a digitized 56-point B-H curve. Solved at 4 coil currents
+  (0.25, 0.5, 1 and 2 A).
+- **Accurate in the 0.9 mm gap, cheap elsewhere**: converged to < 0.1 % energy error, with adaptive
+  meshing that put 608 k of 1.68 M elements in the fluid (smallest edge 0.06 mm) and 87 k in the air.
+- **Saturation quantified**: doubling the current raises the peak gap field 2.1× at low current
+  but only 1.24× from 1 to 2 A, and the coil inductance falls from 32 to 20 mH. This set the
+  1.5 A limit of the current driver.
+- **Maxwell → Fluent field coupling**: Maxwell is solved once per current, not once per piston
+  position. A UDF writes |B| into every Fluent cell as a User Defined Scalar (UDS) for the
+  viscosity model to read. A full 2D map at all 107 450 Fluent cell centroids was also exported.
+
+![Gap line](figures/gap_line_B_vs_current.png)
+
+*|B| along the middle of the fluid gap. The field sits at the two pole faces of the piston, and the
+gain per current step shrinks as the steel saturates.*
+
+**Status**: the magnetic model, the saturation study and the field transfer into Fluent are complete
+(the field shown in Fluent below is the imported result). The field-dependent viscosity
+(Bingham model) and the moving-field UDFs are drafts in `fluent_udf/drafts/`.
 
 ![Multiphysics workflow](figures/multiphysics_workflow_en.png)
 
@@ -65,10 +87,13 @@ solution gives L for any number of turns: L = N² · 2E/(N I)². The inductance 
 |---|---|
 | ![B 72](figures/B_map_72At.png) | ![B 144](figures/B_map_144At.png) |
 
-|B| along the mid-line of the fluid gap (r = 24.55 mm, z from -30 to +30 mm, 121 points), exported
-with the Fields Calculator for every excitation (`data/gap_line/`):
+*Section through the piston, damper axis vertical. Centre square: steel core inside the coil.
+Dark blue rectangles on each side: the coil region. Thin green strips at the left and right edges: the steel
+cylinder wall. The 0.9 mm fluid gap lies between the piston and the wall (red line in the left map).*
 
-![Gap line](figures/gap_line_B_vs_current.png)
+The gap-line plot at the top is |B| along the mid-line of the fluid gap (r = 24.55 mm, z from
+-30 to +30 mm, 121 points), exported with the Fields Calculator for every excitation
+(`data/gap_line/`).
 
 - The field is concentrated at the two pole faces of the piston (|z| ≈ 11 to 22 mm) and is almost
   zero over the coil (|z| < 10 mm). Only the fluid passing the poles is activated.
@@ -94,7 +119,7 @@ piston, where it controls the apparent viscosity of the MR fluid.*
 ### Field used in the final Fluent run: gap-line profile
 
 `fluent_udf/init_bfield.c` (`DEFINE_INIT`, compiled in the final Fluent system) reads
-`fluent_udf/zz.txt`, the 72 ampere-turn |B| on the gap mid-line (z, |B|). It shifts z into the
+`fluent_udf/B_gap_midline_72At_z_B.txt`, the 72 ampere-turn |B| on the gap mid-line (z, |B|). It shifts z into the
 Fluent frame (+0.104 + 0.0225 = 0.1265 m, the piston centre) and writes, for every cell, the
 value at the nearest axial position into UDS-0. B is therefore treated as a function of the axial
 position, B(z), which is the quantity that controls the flow resistance in the gap. This is why
@@ -112,23 +137,24 @@ The data for a full 2D field map at the fluid cell centres was also produced:
    cells themselves, the field resolution follows the CFD mesh: fine (0.1 mm) in the gap and
    coarse (2 mm) where the fluid is nearly still.
 3. **Table for the UDF**: `x y B` (`scripts/maxwell_export_to_uds.py`,
-   `data/coupling/04_Finaluds_x_y_B.txt`), read by `fluent_udf/init_2D_centroid_map_attempt.c`
-   (nearest neighbour in x and y).
+   `data/coupling/04_Finaluds_x_y_B.txt`). The UDF that reads it,
+   `fluent_udf/drafts/init_2D_centroid_map_attempt.c` (nearest neighbour in x and y), is a draft
+   that was not used in the final run.
 
 ![Fluent mesh](figures/fluent_2D_mesh_refinement.png)
 
 *Fluent mesh: 0.1 mm cells in the gap, about 2 mm cells where the fluid is nearly still.*
 
-### Other UDFs (`fluent_udf/`)
+### Other UDFs
 
-- `piston_motion_2D.c`: `DEFINE_CG_MOTION`, sinusoidal piston motion (1 cm, 1 Hz) with smoothing
-  and remeshing dynamic mesh.
-- `udf_drafts_from_UDF-UDS_docx.c` (drafts):
+- `fluent_udf/piston_motion_2D.c`: `DEFINE_CG_MOTION`, sinusoidal piston motion (1 cm, 1 Hz) with
+  smoothing and remeshing dynamic mesh.
+- `fluent_udf/drafts/viscosity_and_moving_field_drafts.c` (drafts, several UDFs in one file):
   - `DEFINE_PROPERTY`: viscosity of each cell from its UDS value with the Bingham model
     η = τy(B)/γ̇ + η_p, τy = aB + bB², with a lower bound on γ̇ to avoid division by zero.
   - `DEFINE_ON_DEMAND` + `DEFINE_ADJUST`: shift the field lookup by the current piston position at
     every time step, so the field moves with the piston.
-- `piston_motion_3D_early.c`: an earlier 3D version of the motion UDF.
+- `fluent_udf/drafts/piston_motion_3D_early.c`: an earlier 3D version of the motion UDF.
 
 This is a one-way coupling: the field changes the fluid properties, and the effect of the particle
 chains on the field is neglected.
@@ -140,7 +166,8 @@ maxwell/            .aedt project (geometry, materials, setup; results not inclu
 maxwell/materials/  MR-fluid B-H curve and the WebPlotDigitizer project
 data/gap_line/      |B| on the gap mid-line for 18 / 36 / 72 / 144 ampere-turns
 data/coupling/      Fluent centroids → Maxwell points → |B| export → UDF table
-fluent_udf/         UDF sources (C) and the gap-line table used by the final UDF
+fluent_udf/         UDFs used in the final run and the gap-line table they read
+fluent_udf/drafts/  earlier and unfinished UDFs, kept for reference
 scripts/            Python scripts that rebuild the plots and the coupling files
 figures/            result images
 ```

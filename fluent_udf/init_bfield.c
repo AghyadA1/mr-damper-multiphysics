@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define CSV_FILE "zz.txt"
+#define CSV_FILE "B_gap_midline_72At_z_B.txt"  /* z [m], |B| [T] on the gap mid-line, 72 A-turns */
 #define N 1000
 
 float bfield_data[N][2]; // [x, B]
