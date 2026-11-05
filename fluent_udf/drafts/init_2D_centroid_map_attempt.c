@@ -1,3 +1,7 @@
+/* Draft (never compiled): first attempt at a full 2D (x, y) nearest-neighbour map.
+   Known issues: the while condition does not compile, and N = 10000 is below the 107 450 rows
+   of data/coupling/04_Finaluds_x_y_B.txt. The final run used ../init_bfield.c instead. */
+
 #include "udf.h"
 #include <stdio.h>
 #include <math.h>
